@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% block title %}Connexion{% endblock %}
 {% block body %}
     {% if error %}
         <div class="alert alert-danger">
@@ -11,5 +12,4 @@
         </div>
     {% endif %}
     {{form(form)}}
-
 {% endblock %}
