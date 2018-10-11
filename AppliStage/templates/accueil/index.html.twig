@@ -50,8 +50,10 @@
 						</div>
 					</section>
 				</div>
+				
+				
 
-				<!--
+				
 				<div class="box container">
 					<header>
 						<h2>A lot of generic stuff</h2>
@@ -113,44 +115,36 @@
 					</section>
 					<section>
 						<header>
-							<h3>Table</h3>
+							<h3>Liste des entreprises</h3>
 						</header>
 						<div class="table-wrapper">
 							<table class="default">
 								<thead>
 									<tr>
-										<th>ID</th>
-										<th>Name</th>
-										<th>Description</th>
-										<th>Price</th>
+										<th>Nom</th>
+										<th>Ville</th>
+										<th>Code Postal</th>
+										<th>Adresse</th>
+										<th>Mail</th>
+										<th>Telephone</th>
+										<th>Activite</th>
+										<th>Active</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>45815</td>
-										<td>Something</td>
-										<td>Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</td>
-										<td>29.99</td>
-									</tr>
-									<tr>
-										<td>24524</td>
-										<td>Nothing</td>
-										<td>Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</td>
-										<td>19.99</td>
-									</tr>
-									<tr>
-										<td>45815</td>
-										<td>Something</td>
-										<td>Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</td>
-										<td>29.99</td>
-									</tr>
-									<tr>
-										<td>24524</td>
-										<td>Nothing</td>
-										<td>Ut porttitor sagittis lorem, quis eleifend nisi ornare vel.</td>
-										<td>19.99</td>
-									</tr>
-								</tbody>
+                                {% for i in entreprises %}
+                                    <tr>
+                                        <td>{{ i.nom }}</td>
+                                        <td>{{ i.ville }}</td>
+                                        <td>{{ i.cp }}</td>
+                                        <td>{{ i.adresse }}</td>
+										<td>{{ i.mail }}</td>
+										<td>{{ i.tel }}</td>
+										<td>{{ i.activite }}</td>
+										<td>{{ i.active }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
 								<tfoot>
 									<tr>
 										<td colspan="3"></td>
@@ -192,7 +186,7 @@
 						</form>
 					</section>
 				</div>
-				-->
+				
 
 				<footer class="major container medium">
 					<h3>Get shady with science</h3>
