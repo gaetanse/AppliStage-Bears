@@ -16,15 +16,57 @@
 			<div id="main">
 
 				<header class="major container medium">
-					<h2><a href="">SE CONNECTER</a>
-					<br />
-					<a href="">CREER UN COMPTE</a>
-					<br />
-					<a href="">DECONNEXION</a></h2>
-					<!--
-					<p>Tellus erat mauris ipsum fermentum<br />
-					etiam vivamus nunc nibh morbi.</p>
-					-->
+									<nav id="main-nav" class="container navbar navbar-expand-lg navbar-light bg-light border
+					rounded mb-3">
+						<ul class="navbar-nav">
+							{% if is_granted('ROLE_USER') %}
+								<li class="nav-item {% if mainNavMember is defined %}active{% endif %}">
+									<h2><a class="nav-link" href="{{path('membre')}}">Espace membre</a></h2>
+								</li>
+							{% endif %}
+							{% if is_granted('ROLE_ADMIN') %}
+								<li class="nav-item {% if mainNavAdmin is defined %}active{% endif %}">
+									<h2><a class="nav-link" href="{{path('administrateur')}}">Espace admin</a></h2>
+								</li>
+							{% endif %}
+						</ul>
+						<ul class="navbar-nav ml-auto">
+							{% if is_granted('ROLE_USER') %}
+								<li class="nav-item">
+									<h2><a class="nav-link" href="{{path('logout')}}">Déconnexion</a></h2>
+								</li>
+							{% else %}
+								<li class="nav-item {% if mainNavLogin is defined %}active{% endif %}">
+									<h2><a class="nav-link" href="{{path('login')}}">Connexion</a></h2>
+								</li>
+								<li class="nav-item {% if mainNavRegistration is defined %}active{% endif %}">
+									<h2><a class="nav-link" href="{{path('inscription')}}">Inscription</a></h2>
+								</li>
+							{% endif %}
+						</ul>
+					</nav>
+				{% endblock %}
+				{% block flash %}
+					{% for flash_message in app.session.flashbag.get('success') %}
+						<div class="container alert alert-success" role="alert">
+							{{ flash_message }}
+						</div>
+					{% endfor %}
+					{% for flash_message in app.session.flashbag.get('info') %}
+						<div class="container alert alert-info" role="alert">
+							{{ flash_message }}
+						</div>
+					{% endfor %}
+					{% for flash_message in app.session.flashbag.get('warning') %}
+						<div class="container alert alert-warning" role="alert">
+							{{ flash_message }}
+						</div>
+					{% endfor %}
+					{% for flash_message in app.session.flashbag.get('danger') %}
+						<div class="container alert alert-danger" role="alert">
+							{{ flash_message }}
+						</div>
+					{% endfor %}
 				</header>
 				
 
@@ -65,7 +107,8 @@
 							</table>
 						</div>
 					</section>
-					<!--
+					</body>
+										<!--
 					<section>
 						<header>
 							<h3>Form</h3>
@@ -152,57 +195,4 @@
 
 				</div>
 			</div>-->
-	</body>
-	<nav id="main-nav" class="container navbar navbar-expand-lg navbar-light bg-light border
-rounded mb-3">
-		<ul class="navbar-nav">
-            {% if is_granted('ROLE_USER') %}
-				<li class="nav-item {% if mainNavMember is defined %}active{% endif %}">
-					<a class="nav-link" href="{{path('membre')}}">Espace membre</a>
-				</li>
-            {% endif %}
-            {% if is_granted('ROLE_ADMIN') %}
-				<li class="nav-item {% if mainNavAdmin is defined %}active{% endif %}">
-					<a class="nav-link" href="{{path('administrateur')}}">Espace admin</a>
-				</li>
-            {% endif %}
-		</ul>
-		<ul class="navbar-nav ml-auto">
-            {% if is_granted('ROLE_USER') %}
-				<li class="nav-item">
-					<a class="nav-link" href="{{path('logout')}}">Déconnexion</a>
-				</li>
-            {% else %}
-				<li class="nav-item {% if mainNavLogin is defined %}active{% endif %}">
-					<a class="nav-link" href="{{path('login')}}">Connexion</a>
-				</li>
-				<li class="nav-item {% if mainNavRegistration is defined %}active{% endif %}">
-					<a class="nav-link" href="{{path('inscription')}}">Inscription</a>
-				</li>
-            {% endif %}
-		</ul>
-	</nav>
-{% endblock %}
-{% block flash %}
-    {% for flash_message in app.session.flashbag.get('success') %}
-		<div class="container alert alert-success" role="alert">
-            {{ flash_message }}
-		</div>
-    {% endfor %}
-    {% for flash_message in app.session.flashbag.get('info') %}
-		<div class="container alert alert-info" role="alert">
-            {{ flash_message }}
-		</div>
-    {% endfor %}
-    {% for flash_message in app.session.flashbag.get('warning') %}
-		<div class="container alert alert-warning" role="alert">
-            {{ flash_message }}
-		</div>
-    {% endfor %}
-    {% for flash_message in app.session.flashbag.get('danger') %}
-		<div class="container alert alert-danger" role="alert">
-            {{ flash_message }}
-		</div>
-    {% endfor %}
-
-{% endblock %}
+					{% endblock %}
