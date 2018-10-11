@@ -194,6 +194,11 @@ input, select, textarea {
 		.container.medium {
 			width: 38.25em;
 		}
+		
+		.container.large {
+			width: 76em;
+		}
+
 
 		@media screen and (max-width: 1280px) {
 
@@ -204,6 +209,10 @@ input, select, textarea {
 				.container.medium {
 					width: 36em;
 				}
+				
+					.container.large {
+						width: 68em;
+					}
 
 		}
 
@@ -216,6 +225,10 @@ input, select, textarea {
 				.container.medium {
 					width: 71.25%;
 				}
+				
+				.container.large {
+						width: 100%;
+					}
 
 		}
 
@@ -2479,6 +2492,7 @@ input, select, textarea {
 
 			table.default td {
 				padding: 0.5em 1em 0.5em 1em;
+				font-size: 0.8em;
 			}
 
 			table.default th {
