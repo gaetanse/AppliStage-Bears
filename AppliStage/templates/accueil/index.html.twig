@@ -16,7 +16,7 @@
 			<div id="main">
 
 				<header class="major container medium">
-									<nav id="main-nav" class="container navbar navbar-expand-lg navbar-light bg-light border
+					<nav id="main-nav" class="container navbar navbar-expand-lg navbar-light bg-light border
 					rounded mb-3">
 						<ul class="navbar-nav">
 							{% if is_granted('ROLE_USER') %}
@@ -45,7 +45,6 @@
 							{% endif %}
 						</ul>
 					</nav>
-				{% endblock %}
 				{% block flash %}
 					{% for flash_message in app.session.flashbag.get('success') %}
 						<div class="container alert alert-success" role="alert">
@@ -68,6 +67,7 @@
 						</div>
 					{% endfor %}
 				</header>
+				{% endblock %}
 				
 
 				
@@ -108,7 +108,7 @@
 						</div>
 					</section>
 					</body>
-										<!--
+<!--
 					<section>
 						<header>
 							<h3>Form</h3>
