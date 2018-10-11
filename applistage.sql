@@ -11,13 +11,8 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-
--- Export de la structure de la base pour applistage
-CREATE DATABASE IF NOT EXISTS `applistage` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `applistage`;
-
--- Export de la structure de la table applistage. applistage
-CREATE TABLE IF NOT EXISTS `applistage` (
+-- Export de la structure de la table applistage. entreprise
+CREATE TABLE IF NOT EXISTS `entreprise` (
   `id` int(11) NOT NULL,
   `nom` tinytext NOT NULL,
   `ville` tinytext NOT NULL,
@@ -29,9 +24,10 @@ CREATE TABLE IF NOT EXISTS `applistage` (
   `active` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Export de données de la table applistage.applistage : ~115 rows (environ)
-/*!40000 ALTER TABLE `applistage` DISABLE KEYS */;
-REPLACE INTO `applistage` (`id`, `nom`, `ville`, `cp`, `adresse`, `mail`, `tel`, `activite`, `active`) VALUES
+-- Export de données de la table applistage.entreprise : ~115 rows (environ)
+DELETE FROM `entreprise`;
+/*!40000 ALTER TABLE `entreprise` DISABLE KEYS */;
+INSERT INTO `entreprise` (`id`, `nom`, `ville`, `cp`, `adresse`, `mail`, `tel`, `activite`, `active`) VALUES
 	(1, 'Ecole Maternelle FranÃ§oise Dolto', 'Melun', 77000, '30 avenue Georges Pompidou', '', '01 64 64 04 20', 'Enseignement', 1),
 	(2, 'Groupe AdÃ©quat', 'Vert-Saint-Denis', 77240, '390 avenue Anna Lindh', 'agence.vsd@groupeadequat.fr', '06 46 64 27 82', 'Autre', 1),
 	(3, 'Le Pain Gourmand', 'Melun', 77000, '47 avenue Georges Pompidou', '', '07 50 60 12 06', 'commerce/Distribution', 1),
@@ -147,7 +143,23 @@ REPLACE INTO `applistage` (`id`, `nom`, `ville`, `cp`, `adresse`, `mail`, `tel`,
 	(113, 'Zadis Electrique', 'Dammarie-les-Lys', 77190, '37 rue Marc Lanvin', '', '01 60 65 19 53', 'BÃ¢timent/Construction ', 1),
 	(114, 'Centre de loisirs Bois du Lys', 'Dammarie-les-Lys', 77190, '380 chemin du Clocher', '', '01 64 37 15 27', 'Sport', 1),
 	(115, 'Chantemur', 'Melun', 77000, 'ZAC du Champs de Foire', '', '01 60 68 25 00', 'Commerce/Distribution', 1);
-/*!40000 ALTER TABLE `applistage` ENABLE KEYS */;
+/*!40000 ALTER TABLE `entreprise` ENABLE KEYS */;
+
+-- Export de la structure de la table applistage. utilisateur
+CREATE TABLE IF NOT EXISTS `utilisateur` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  `roles` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '(DC2Type:array)',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_1D1C63B3E7927C74` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Export de données de la table applistage.utilisateur : ~0 rows (environ)
+DELETE FROM `utilisateur`;
+/*!40000 ALTER TABLE `utilisateur` DISABLE KEYS */;
+/*!40000 ALTER TABLE `utilisateur` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
