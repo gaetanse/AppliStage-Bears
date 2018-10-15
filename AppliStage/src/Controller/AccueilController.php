@@ -25,12 +25,21 @@ class AccueilController extends Controller
     {
 
         $test = $this->getUser() ? $this->getUser()->getIdstage() : '';
-        echo $test;
         $entreprises = $this->getDoctrine()->getRepository(Entreprise::class)->findAll();
 
-        $selec = $this->getDoctrine()->getRepository(Entreprise::class)->find($test);
+        //$selec = $this->getDoctrine()->getRepository(Entreprise::class)->findAll();
 
-        return $this->render('accueil/index.html.twig',array('entreprises'=>$entreprises,'iduser'=>$test,'selec'=>$selec));
+        if($test!=''){
+            $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+            $product = $repository->find($test);
+
+        }
+        else{
+            $product = $entreprises;
+        }
+
+
+        return $this->render('accueil/index.html.twig',array('entreprises'=>$entreprises,'iduser'=>$test,'selec'=>$product));
     }
 
     /**
@@ -67,7 +76,7 @@ class AccueilController extends Controller
     /**
      * @Route("/login", name="login")
      */
-    public function login(Request $request, AuthenticationUtils $authenticationUtils,SessionInterface $session) {
+    public function login(Request $request, AuthenticationUtils $authenticationUtils) {
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
@@ -81,7 +90,6 @@ class AccueilController extends Controller
             ->add('ok', \Symfony\Component\Form\Extension\Core\Type\SubmitType::class, ['label' =>
                 'Envoyer', 'attr' => ['class' => 'button small']])
             ->getForm();
-
 
         return $this->render('accueil/login.html.twig', [
             'mainNavLogin' => true, 'title' => 'Connexion',
@@ -101,11 +109,35 @@ class AccueilController extends Controller
 
         $entityManager = $this->getDoctrine()->getManager();
         $utilisateur = $entityManager->getRepository(Utilisateur::class)->find($user->getId());
+        $entreprise = $entityManager->getRepository(Entreprise::class)->find($id);
 
-        $utilisateur->setIdstage($id);
-        $entityManager->flush();
+        if($entreprise->getResteplace()>0){
+            $entreprise->setResteplace($entreprise->getResteplace()-1);
+            $utilisateur->setIdstage($id);
+            $entityManager->flush();
+        }
 
         return $this->redirectToRoute('accueil');
     }
+
+    /**
+     * @Route("/membre/supprimerStage/{id}", name="supprimerStage")
+     */
+    public function supprimerStage(Request $request, $id) {
+
+        $user=$this->getUser();
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $utilisateur = $entityManager->getRepository(Utilisateur::class)->find($user->getId());
+        $entreprise = $entityManager->getRepository(Entreprise::class)->find($id);
+
+            $entreprise->setResteplace($entreprise->getResteplace()+1);
+            $utilisateur->setIdstage(null);
+            $entityManager->flush();
+
+        return $this->redirectToRoute('accueil');
+    }
+
+
 
 }
