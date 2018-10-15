@@ -2,17 +2,14 @@
 {% block title %} Accueil {% endblock %}
 {% block body %}
 <body class="is-preload">
-		<!-- Header -->
-			<div id="header">
-				<span class="logo icon fa-paper-plane-o"></span>
-				<h1>AppliStage</h1>
-				<p>Un site repertoriant toutes les entreprises de la région afin que vous puissiez trouver votre stage facilement</p>
-				<p>Le site a été fait par SADOUS Gaëtan et HOURDEL Nicolas en utilisant le template HTML5UP Directive.</p>
-			</div>
 		<!-- Main -->
 			<div id="main">
 				<div class="box container large">
 					<section>
+						<header>
+					<a class="button center" href="{{path('ajout_entreprise')}}">Ajout d'une entreprise</a>
+						</header>
+						<br>
 						<header>
 							<h3>Liste des entreprises</h3>
 						</header>
@@ -29,10 +26,6 @@
 										<th>Active</th>
 										<th>Places restantes</th>
 
-    									{% if is_granted('ROLE_USER') %}
-												<th>Déclarer un Stage</th>
-    									{% endif %}
-
 									</tr>
 								</thead>
 								<tbody>
@@ -46,10 +39,6 @@
 										<td>{{ i.activite }}</td>
 										<td>{{ i.active }}</td>
 										<td>{{ i.resteplace }}</td>
-
-                                        {% if is_granted('ROLE_USER') %}
-											<td><a class="button small" href="{{path('declarerStage')}}">Déclarer un Stage</a></td>
-                                        {% endif %}
 
                                     </tr>
                                 {% endfor %}

@@ -21,11 +21,32 @@ class AdministrateurController extends Controller
      */
     public function index()
     {
+       return $this->render('administrateur/index.html.twig', [
+            'AdministraterControler' => 'Site Applistage',
+        ]);
+    }
+	
+	/**
+     * @Route("/administrateur/entreprises", name="administrateur_entreprises")
+     */
+    public function entreprises()
+    {
         $entreprises = $this->getDoctrine()
             ->getRepository(Entreprise::class)
             ->findAll();
-        return $this->render('administrateur/index.html.twig', compact('entreprises'));
+        return $this->render('administrateur/entreprises.html.twig', array('entreprises'=>$entreprises));
     }
+	/**
+     * @Route("/administrateur/utilisateurs", name="administrateur_utilisateurs")
+     */
+	public function utilisateurs()
+    {
+        $utilisateurs = $this->getDoctrine()
+            ->getRepository(Utilisateur::class)
+            ->findAll();
+        return $this->render('administrateur/utilisateurs.html.twig', array('utilisateurs'=>$utilisateurs));
+    }
+
 	
 	/**
      * @Route("/administrateur/ajout", name="ajout_entreprise")

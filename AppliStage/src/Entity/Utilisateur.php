@@ -17,12 +17,14 @@ class Utilisateur implements UserInterface, \Serializable
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+	
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
      * @Assert\Email()
      */
     private $email;
+	
     /**
      * @Assert\NotBlank()
      * @Assert\Length(max=250)
@@ -72,7 +74,7 @@ class Utilisateur implements UserInterface, \Serializable
         if (empty($this->roles)) {
             return ['ROLE_USER'];
         }
-        return $this->roles;
+        return implode('', $this->roles);
     }
     function addRole($role)
     {
