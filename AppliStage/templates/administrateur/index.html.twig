@@ -1,20 +1,21 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Hello {{ controller_name }}!{% endblock %}
-
+{% block title %} Accueil {% endblock %}
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'src/Controller/AdministrateurController.php'|file_link(0) }}">src/Controller/AdministrateurController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'templates/administrateur/index.html.twig'|file_link(0) }}">templates/administrateur/index.html.twig</a></code></li>
-    </ul>
-</div>
+<body class="is-preload">
+		<!-- Header -->
+			<div id="header">
+				<span class="logo icon fa-paper-plane-o"></span>
+				<h1>AppliStage</h1>
+				<h2>Espace Admin</h2>
+				<p>Ici, vous pouvez ajouter, modifier, supprimer une entreprise ou un utilisateur.</p>
+			</div>
+		<!-- Main -->
+			<div id="main">
+				<div class="box container large">
+					<section>
+					<header><p><a class="button center" href="{{path('administrateur_entreprises')}}">Afficher les entreprises</a></p></header>
+					<header><p><a class="button center" href="{{path('administrateur_utilisateurs')}}">Afficher les utilisateurs</a></p></header>
+					</div>
+					</div>
+					</body>
 {% endblock %}

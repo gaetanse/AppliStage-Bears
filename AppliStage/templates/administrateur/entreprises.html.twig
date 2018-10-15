@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+{% block title %} Accueil {% endblock %}
+{% block body %}
+<body class="is-preload">
+		<!-- Main -->
+			<div id="main">
+				<div class="box container large">
+					<section>
+						<header>
+					<a class="button center" href="{{path('ajout_entreprise')}}">Ajout d'une entreprise</a>
+						</header>
+						<br>
+						<header>
+							<h3>Liste des entreprises</h3>
+						</header>
+						<div class="table">
+							<table class="default">
+								<thead>
+									<tr>
+										<th>Nom</th>
+										<th>Ville</th>
+										<th>Code Postal</th>
+										<th>Adresse</th>
+										<th>Telephone</th>
+										<th>Activite</th>
+										<th>Active</th>
+										<th>Places restantes</th>
+
+									</tr>
+								</thead>
+								<tbody>
+                                {% for i in entreprises %}
+                                    <tr>
+                                        <td>{{ i.nom }}</td>
+                                        <td>{{ i.ville }}</td>
+                                        <td>{{ i.cp }}</td>
+                                        <td>{{ i.adresse }}</td>
+										<td>{{ i.tel }}</td>
+										<td>{{ i.activite }}</td>
+										<td>{{ i.active }}</td>
+										<td>{{ i.resteplace }}</td>
+
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+							</table>
+						</div>
+					</section>
+					</div>
+					</div>
+					</body>
+{% endblock %}
