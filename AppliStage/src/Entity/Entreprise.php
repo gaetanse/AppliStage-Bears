@@ -56,6 +56,27 @@ class Entreprise
      */
     private $active;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $resteplace;
+
+    /**
+     * @return mixed
+     */
+    public function getResteplace()
+    {
+        return $this->resteplace;
+    }
+
+    /**
+     * @param mixed $resteplace
+     */
+    public function setResteplace($resteplace)
+    {
+        $this->resteplace = $resteplace;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -85,6 +85,13 @@ class AccueilController extends Controller
         ]);
     }
 
+    /**
+     * @Route("/membre/declarerStage", name="declarerStage")
+     */
+    public function declarerStage() {
+
+    }
+
 
 
 
