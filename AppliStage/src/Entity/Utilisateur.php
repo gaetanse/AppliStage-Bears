@@ -39,6 +39,7 @@ class Utilisateur implements UserInterface, \Serializable
      * @ORM\Column(name="is_active", type="boolean")
      */
     private $isActive;
+
     /**
      * @ORM\Column(name="roles", type="array")
      */
@@ -49,6 +50,29 @@ class Utilisateur implements UserInterface, \Serializable
 // may not be needed, see section on salt below
 // $this->salt = md5(uniqid('', true));
     }
+
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $idstage;
+
+    /**
+     * @return mixed
+     */
+    public function getIdstage()
+    {
+        return $this->idstage;
+    }
+
+    /**
+     * @param mixed $idstage
+     */
+    public function setIdstage($idstage)
+    {
+        $this->idstage = $idstage;
+    }
+
     public function getUsername()
     {
         return $this->email;

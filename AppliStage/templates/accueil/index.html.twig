@@ -12,7 +12,55 @@
 		<!-- Main -->
 			<div id="main">
 				<div class="box container large">
+
+
+
+
 					<section>
+
+
+                        {% if is_granted('ROLE_USER') and iduser!='' %}
+
+							<header><h3>Entreprise selectionnée</h3></header>
+
+							<div class="table">
+								<table class="default">
+									<thead>
+									<tr>
+										<th>Nom</th>
+										<th>Ville</th>
+										<th>Code Postal</th>
+										<th>Adresse</th>
+										<th>Telephone</th>
+										<th>Activite</th>
+										<th>Active</th>
+										<th>Places restantes</th>
+									</tr>
+									</thead>
+									<tbody>
+                                    {% for i in selec %}
+										<tr>
+											<td>{{ i.nom }}</td>
+											<td>{{ i.ville }}</td>
+											<td>{{ i.cp }}</td>
+											<td>{{ i.adresse }}</td>
+											<td>{{ i.tel }}</td>
+											<td>{{ i.activite }}</td>
+											<td>{{ i.active }}</td>
+											<td>{{ i.resteplace }}</td>
+										</tr>
+                                    {% endfor %}
+									</tbody>
+								</table>
+							</div>
+
+                        {% endif %}
+
+					</section>
+
+
+						<section>
+
 						<header>
 							<h3>Liste des entreprises</h3>
 						</header>
@@ -28,11 +76,9 @@
 										<th>Activite</th>
 										<th>Active</th>
 										<th>Places restantes</th>
-
-    									{% if is_granted('ROLE_USER') %}
+    									{% if is_granted('ROLE_USER') and iduser=='' %}
 												<th>Déclarer un Stage</th>
     									{% endif %}
-
 									</tr>
 								</thead>
 								<tbody>
@@ -46,17 +92,17 @@
 										<td>{{ i.activite }}</td>
 										<td>{{ i.active }}</td>
 										<td>{{ i.resteplace }}</td>
-
-                                        {% if is_granted('ROLE_USER') %}
-											<td><a class="button small" href="{{path('declarerStage')}}">Déclarer un Stage</a></td>
+                                        {% if is_granted('ROLE_USER') and iduser=='' %}
+											<td><a class="button small" href="{{ path('declarerStage', {'id': i.id}) }}">Déclarer un Stage</a></td>
                                         {% endif %}
-
                                     </tr>
                                 {% endfor %}
                                 </tbody>
 							</table>
 						</div>
 					</section>
+
+
 					</body>
 <!--
 					<section>

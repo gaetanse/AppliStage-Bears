@@ -14,18 +14,23 @@ use App\Form\UtilisateurType;
 use App\Entity\Utilisateur;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class AccueilController extends Controller
 {
     /**
-     * @Route("/accueil", name="accueil")
+     * @Route("/accueil/", name="accueil")
      */
-    public function index()
+    public function index(SessionInterface $session)
     {
-			$entreprises = $this->getDoctrine()
-            ->getRepository(Entreprise::class)
-            ->findAll();
-        return $this->render('accueil/index.html.twig', compact('entreprises'));
+
+        $test = $this->getUser() ? $this->getUser()->getIdstage() : '';
+        echo $test;
+        $entreprises = $this->getDoctrine()->getRepository(Entreprise::class)->findAll();
+
+        $selec = $this->getDoctrine()->getRepository(Entreprise::class)->find($test);
+
+        return $this->render('accueil/index.html.twig',array('entreprises'=>$entreprises,'iduser'=>$test,'selec'=>$selec));
     }
 
     /**
@@ -62,7 +67,7 @@ class AccueilController extends Controller
     /**
      * @Route("/login", name="login")
      */
-    public function login(Request $request, AuthenticationUtils $authenticationUtils) {
+    public function login(Request $request, AuthenticationUtils $authenticationUtils,SessionInterface $session) {
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
@@ -76,6 +81,8 @@ class AccueilController extends Controller
             ->add('ok', \Symfony\Component\Form\Extension\Core\Type\SubmitType::class, ['label' =>
                 'Envoyer', 'attr' => ['class' => 'button small']])
             ->getForm();
+
+
         return $this->render('accueil/login.html.twig', [
             'mainNavLogin' => true, 'title' => 'Connexion',
             //
@@ -86,13 +93,19 @@ class AccueilController extends Controller
     }
 
     /**
-     * @Route("/membre/declarerStage", name="declarerStage")
+     * @Route("/membre/declarerStage/{id}", name="declarerStage")
      */
-    public function declarerStage() {
+    public function declarerStage(Request $request, $id) {
 
+        $user=$this->getUser();
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $utilisateur = $entityManager->getRepository(Utilisateur::class)->find($user->getId());
+
+        $utilisateur->setIdstage($id);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('accueil');
     }
-
-
-
 
 }
