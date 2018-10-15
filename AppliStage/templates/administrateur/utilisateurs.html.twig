@@ -21,7 +21,7 @@
                                 {% for u in utilisateurs %}
                                     <tr>
                                         <td>{{ u.email }}</td>
-                                        <td>{{ u.roles }}</td>
+                                        <td>{{ u.roles[0] }}</td>
 
                                     </tr>
                                 {% endfor %}

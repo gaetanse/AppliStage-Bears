@@ -17,14 +17,12 @@ class Utilisateur implements UserInterface, \Serializable
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-	
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
      * @Assert\Email()
      */
     private $email;
-	
     /**
      * @Assert\NotBlank()
      * @Assert\Length(max=250)
@@ -41,6 +39,7 @@ class Utilisateur implements UserInterface, \Serializable
      * @ORM\Column(name="is_active", type="boolean")
      */
     private $isActive;
+
     /**
      * @ORM\Column(name="roles", type="array")
      */
@@ -51,6 +50,29 @@ class Utilisateur implements UserInterface, \Serializable
 // may not be needed, see section on salt below
 // $this->salt = md5(uniqid('', true));
     }
+
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $idstage;
+
+    /**
+     * @return mixed
+     */
+    public function getIdstage()
+    {
+        return $this->idstage;
+    }
+
+    /**
+     * @param mixed $idstage
+     */
+    public function setIdstage($idstage)
+    {
+        $this->idstage = $idstage;
+    }
+
     public function getUsername()
     {
         return $this->email;
@@ -74,7 +96,7 @@ class Utilisateur implements UserInterface, \Serializable
         if (empty($this->roles)) {
             return ['ROLE_USER'];
         }
-        return implode('', $this->roles);
+        return $this->roles;
     }
     function addRole($role)
     {

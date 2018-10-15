@@ -44,6 +44,7 @@ class AdministrateurController extends Controller
         $utilisateurs = $this->getDoctrine()
             ->getRepository(Utilisateur::class)
             ->findAll();
+			
         return $this->render('administrateur/utilisateurs.html.twig', array('utilisateurs'=>$utilisateurs));
     }
 
