@@ -74,7 +74,7 @@ class AccueilController extends Controller
             ->add('_password', \Symfony\Component\Form\Extension\Core\Type\PasswordType::class,
                 ['label' => 'Mot de passe'])
             ->add('ok', \Symfony\Component\Form\Extension\Core\Type\SubmitType::class, ['label' =>
-                'Ok', 'attr' => ['class' => 'btn-primary btn-block']])
+                'Envoyer', 'attr' => ['class' => 'button small']])
             ->getForm();
         return $this->render('accueil/login.html.twig', [
             'mainNavLogin' => true, 'title' => 'Connexion',
