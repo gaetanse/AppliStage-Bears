@@ -1,20 +1,102 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Hello {{ controller_name }}!{% endblock %}
-
+{% block title %} Accueil {% endblock %}
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<body class="is-preload">
+		<!-- Header -->
+			<div id="header">
+				<span class="logo icon fa-paper-plane-o"></span>
+				<h1>AppliStage</h1>
+				<h2>Espace Admin</h2>
+				<p>Ici, vous pouvez ajouter, modifier, supprimer une entreprise ou un utilisateur.</p>
+			</div>
+		<!-- Main -->
+			<div id="main">
+				<div class="box container large">
+					<section>
+						<header>
+					<a class="button center" href="{{path('ajout_entreprise')}}">Ajout d'une entreprise</a>
+						</header>
+						<br>
+						<header>
+							<h3>Liste des entreprises</h3>
+						</header>
+						<div class="table">
+							<table class="default">
+								<thead>
+									<tr>
+										<th>Nom</th>
+										<th>Ville</th>
+										<th>Code Postal</th>
+										<th>Adresse</th>
+										<th>Telephone</th>
+										<th>Activite</th>
+										<th>Active</th>
+										<th>Places restantes</th>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+									</tr>
+								</thead>
+								<tbody>
+                                {% for i in entreprises %}
+                                    <tr>
+                                        <td>{{ i.nom }}</td>
+                                        <td>{{ i.ville }}</td>
+                                        <td>{{ i.cp }}</td>
+                                        <td>{{ i.adresse }}</td>
+										<td>{{ i.tel }}</td>
+										<td>{{ i.activite }}</td>
+										<td>{{ i.active }}</td>
+										<td>{{ i.resteplace }}</td>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'src/Controller/AdministrateurController.php'|file_link(0) }}">src/Controller/AdministrateurController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'templates/administrateur/index.html.twig'|file_link(0) }}">templates/administrateur/index.html.twig</a></code></li>
-    </ul>
-</div>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+							</table>
+						</div>
+					</section>
+					</body>
+<!--
+					<section>
+						<header>
+							<h3>Form</h3>
+						</header>
+						<form method="post" action="#">
+							<div class="row">
+								<div class="col-6 col-12-mobilep">
+									<label for="name">Name</label>
+									<input class="text" type="text" name="name" id="name" value="" placeholder="John Doe" />
+								</div>
+								<div class="col-6 col-12-mobilep">
+									<label for="email">Email</label>
+									<input class="text" type="text" name="email" id="email" value="" placeholder="johndoe@domain.tld" />
+								</div>
+								<div class="col-12">
+									<label for="subject">Subject</label>
+									<input class="text" type="text" name="subject" id="subject" value="" placeholder="Enter your subject" />
+								</div>
+								<div class="col-12">
+									<label for="subject">Message</label>
+									<textarea name="message" id="message" placeholder="Enter your message" rows="6"></textarea>
+								</div>
+								<div class="col-12">
+									<ul class="actions special">
+										<li><input type="submit" value="Send" /></li>
+										<li><input type="reset" value="Reset" class="alt" /></li>
+									</ul>
+								</div>
+							</div>
+						</form>
+					</section>
+				</div>
+				
+
+				<footer class="major container medium">
+					<h3>Get shady with science</h3>
+					<p>Vitae natoque dictum etiam semper magnis enim feugiat amet curabitur tempor orci penatibus. Tellus erat mauris ipsum fermentum etiam vivamus.</p>
+					<ul class="actions special">
+						<li><a href="#" class="button">Join our crew</a></li>
+					</ul>
+				</footer>
+					</div>
+			</div>
+</body>
 {% endblock %}
