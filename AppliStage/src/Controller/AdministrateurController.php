@@ -135,7 +135,7 @@ class AdministrateurController extends Controller
                 return $this->redirectToRoute('administrateur_entreprises');
             }
         }
-        return $this->render('administrateur/ajout.html.twig', array(
+        return $this->render('administrateur/modifEntreprise.html.twig', array(
             'form' => $form->createView(),
         ));
     }
@@ -192,7 +192,7 @@ class AdministrateurController extends Controller
                 return $this->redirectToRoute('administrateur_utilisateurs');
             }
         }
-        return $this->render('administrateur/ajout.html.twig', array(
+        return $this->render('administrateur/modifUtilisateur.html.twig', array(
             'form' => $form->createView(),
         ));
     }
