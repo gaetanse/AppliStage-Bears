@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\UtilisateurType;
@@ -164,7 +165,7 @@ class AdministrateurController extends Controller
 	 /**
      * @Route("/administrateur/modifier_utilisateur/{id}", name="modifier_utilisateur")
      */
-    public function modifierUtilisateur(Request $request, $id)
+    public function modifierUtilisateur(Request $request, $id, UserPasswordEncoderInterface $passwordEncoder)
     {
         $item = $this->getDoctrine()
             ->getRepository(Utilisateur::class)
@@ -176,7 +177,18 @@ class AdministrateurController extends Controller
         } else {
             $form = $this->createFormBuilder($item)
 				->add('email', EmailType::class)
-				->add('password', PasswordType::class)
+				->add('plainPassword', RepeatedType::class, array(
+                'type' => PasswordType::class,
+                'first_options' => array('label' => 'Mot de passe'),
+                'second_options' => array('label' => 'Confirmation du mot de passe'),
+				))
+				->add('roles', ChoiceType::class, array(
+                'choices' => array ( 
+				'ROLE_ADMIN' => 'ROLE_ADMIN',
+				'ROLE_USER' => 'ROLE_USER',
+				),
+				'multiple' => true,
+        ))
 				->add('ok', \Symfony\Component\Form\Extension\Core\Type\SubmitType::class, ['label' =>
                 'Envoyer', 'attr' => ['class' => 'button small']])
 
@@ -186,6 +198,11 @@ class AdministrateurController extends Controller
         if ($request->isMethod('POST')) {
             $form->submit($request->request->get($form->getName()));
             if ($form->isSubmitted() && $form->isValid()) {
+				$password = $passwordEncoder->encodePassword($item, $item->getPlainPassword());
+				$item->setPassword($password);
+				$role = $form->get('roles')->getData();
+				$item->setIsActive(true);
+				$item->setRoles($role);
                 $item = $form->getData();
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($item);
@@ -204,7 +221,7 @@ class AdministrateurController extends Controller
     public function supprimerUtilisateur($id)
     {
         $item = $this->getDoctrine()
-            ->getRepository(Entreprise::class)
+            ->getRepository(Utilisateur::class)
             ->find($id);
         if (!$item) {
             throw $this->createNotFoundException(
