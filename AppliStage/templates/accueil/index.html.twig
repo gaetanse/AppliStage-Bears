@@ -12,6 +12,8 @@
 		<!-- Main -->
 			<div id="main">
 				<div class="box container large">
+					Temps restant avant notification d'obtention d'un stage :
+					{{ heure }}
 					<section>
                         {% if is_granted('ROLE_USER') and iduser!='' %}
 							<header><h3>Entreprise selectionnée</h3></header>

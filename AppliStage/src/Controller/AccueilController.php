@@ -38,8 +38,9 @@ class AccueilController extends Controller
             $product = $entreprises;
         }
 
+        $heureActuel = time();
 
-        return $this->render('accueil/index.html.twig',array('entreprises'=>$entreprises,'iduser'=>$test,'selec'=>$product));
+        return $this->render('accueil/index.html.twig',array('entreprises'=>$entreprises,'iduser'=>$test,'selec'=>$product,'heure'=>$heureActuel));
     }
 
     /**
@@ -137,7 +138,5 @@ class AccueilController extends Controller
 
         return $this->redirectToRoute('accueil');
     }
-
-
 
 }
