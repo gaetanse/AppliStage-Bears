@@ -93,4 +93,68 @@ class AdministrateurController extends Controller
         ));
 
     }
+	
+	 /**
+     * @Route("/administrateur/modifier_entreprise/{id}", name="modifier_entreprise")
+     */
+    public function modifierEntreprise(Request $request, $id)
+    {
+        $item = $this->getDoctrine()
+            ->getRepository(Entreprise::class)
+            ->find($id);
+        if (!$item) {
+            throw $this->createNotFoundException(
+                'No product found for id ' . $id
+            );
+        } else {
+            $form = $this->createFormBuilder($item)
+				->add('nom', TextType::class)
+				->add('ville', TextType::class)
+				->add('cp', TextType::class)
+				->add('adresse', TextType::class)
+				->add('mail', EmailType::class)
+				->add('tel', TextType::class)
+				->add('activite', TextType::class)
+				->add('active', TextType::class)
+				->add('RestePlace', TextType::class)
+				->add('ok', \Symfony\Component\Form\Extension\Core\Type\SubmitType::class, ['label' =>
+                'Envoyer', 'attr' => ['class' => 'button small']])
+                ->getForm();
+        }
+        // Par défaut, demande POST au même contrôleur qui la restitue.
+        if ($request->isMethod('POST')) {
+            $form->submit($request->request->get($form->getName()));
+            if ($form->isSubmitted() && $form->isValid()) {
+                $item = $form->getData();
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($item);
+                $em->flush();
+                return $this->redirectToRoute('administrateur_entreprises');
+            }
+        }
+        return $this->render('administrateur/ajout.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
+	
+	    /**
+     * @Route("/administrateur/supprimer_entreprise/{id}", name="supprimer_entrepise")
+     */
+    public function supprimerEntreprise($id)
+    {
+        $item = $this->getDoctrine()
+            ->getRepository(Entreprise::class)
+            ->find($id);
+        if (!$item) {
+            throw $this->createNotFoundException(
+                'No product found for id ' . $id
+            );
+        }
+        else {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($item);
+            $em->flush();
+            }
+        return $this->redirectToRoute('administrateur_entreprises');
+    }
 }

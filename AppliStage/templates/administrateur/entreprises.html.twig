@@ -25,6 +25,7 @@
 										<th>Activite</th>
 										<th>Active</th>
 										<th>Places restantes</th>
+										<th>Modifier</th>
 
 									</tr>
 								</thead>
@@ -39,6 +40,10 @@
 										<td>{{ i.activite }}</td>
 										<td>{{ i.active }}</td>
 										<td>{{ i.resteplace }}</td>
+										<td><a href="{{ path('modifier_entreprise', {'id': i.id}) }}">
+                                                Modifier</a></td>
+										<td><a href="{{ path('supprimer_entrepise', {'id': i.id}) }}">
+                                                Supprimer</a></td>
 
                                     </tr>
                                 {% endfor %}
