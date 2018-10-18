@@ -15,6 +15,7 @@ use App\Entity\Utilisateur;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class AccueilController extends Controller
 {
@@ -38,9 +39,15 @@ class AccueilController extends Controller
             $product = $entreprises;
         }
 
-        $heureActuel = time();
+       // $a=0;
 
-        return $this->render('accueil/index.html.twig',array('entreprises'=>$entreprises,'iduser'=>$test,'selec'=>$product,'heure'=>$heureActuel));
+      //  while($a==0){
+
+            $heureActuel = time();
+
+            return $this->render('accueil/index.html.twig',array('entreprises'=>$entreprises,'iduser'=>$test,'selec'=>$product,'heure'=>$heureActuel));
+      //  }
+
     }
 
     /**
@@ -68,21 +75,22 @@ class AccueilController extends Controller
             // ... do any other work - like sending them an email, etc
             // maybe set a "flash" success message for the user
             $this->addFlash('success', 'Votre compte à bien été enregistré.');
-            //return $this->redirectToRoute('login');
+
         }
         return $this->render('accueil/inscription.html.twig', ['form' => $form->createView(),
             'mainNavRegistration' => true, 'title' => 'Inscription']);
     }
 
     /**
-     * @Route("/login", name="login")
+     * @Route("/login/", name="login")
      */
     public function login(Request $request, AuthenticationUtils $authenticationUtils) {
+
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-        //
+
         $form = $this->get('form.factory')
             ->createNamedBuilder(null)
             ->add('_username', null, ['label' => 'Email'])

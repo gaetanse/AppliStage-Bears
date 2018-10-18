@@ -179,6 +179,7 @@ class AdministrateurController extends Controller
 				->add('password', PasswordType::class)
 				->add('ok', \Symfony\Component\Form\Extension\Core\Type\SubmitType::class, ['label' =>
                 'Envoyer', 'attr' => ['class' => 'button small']])
+
                 ->getForm();
         }
         // Par défaut, demande POST au même contrôleur qui la restitue.
