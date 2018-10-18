@@ -91,13 +91,25 @@ class Utilisateur implements UserInterface, \Serializable
     {
         $this->password = $password;
     }
-    public function getRoles()
-    {
-        if (empty($this->roles)) {
-            return ['ROLE_USER'];
-        }
-        return $this->roles;
-    }
+	// modifier la méthode getRoles
+	public function getRoles()
+	{
+		return $this->roles;
+	}
+	
+	public function setRoles(array $roles)
+	{
+		if (!in_array('ROLE_USER', $roles)) {
+			$roles[] = 'ROLE_USER';
+	}
+		foreach ($roles as $role) {
+			if(substr($role, 0, 5) !== 'ROLE_') {
+				throw new InvalidArgumentException("Chaque rôle doit commencer par 'ROLE_'");
+			}
+		}
+		$this->roles = $roles; return $this;
+	}
+
     function addRole($role)
     {
         $this->roles[] = $role;
