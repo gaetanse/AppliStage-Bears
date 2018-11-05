@@ -22,7 +22,7 @@ class AccueilController extends Controller
     /**
      * @Route("/accueil/", name="accueil")
      */
-    public function index(SessionInterface $session)
+    public function Index(SessionInterface $session)
     {
 
         $test = $this->getUser() ? $this->getUser()->getIdstage() : '';
@@ -53,7 +53,7 @@ class AccueilController extends Controller
     /**
      * @Route("/inscription", name= "inscription")
      */
-    public function inscriptionAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function Inscriptionaction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         // 1) build the form
         $user = new Utilisateur();
@@ -84,7 +84,7 @@ class AccueilController extends Controller
     /**
      * @Route("/login/", name="login")
      */
-    public function login(Request $request, AuthenticationUtils $authenticationUtils) {
+    public function Login(Request $request, AuthenticationUtils $authenticationUtils) {
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -112,7 +112,7 @@ class AccueilController extends Controller
     /**
      * @Route("/membre/declarerStage/{id}", name="declarerStage")
      */
-    public function declarerStage(Request $request, $id) {
+    public function Declarerstage(Request $request, $id) {
 
         $user=$this->getUser();
 
@@ -132,7 +132,7 @@ class AccueilController extends Controller
     /**
      * @Route("/membre/supprimerStage/{id}", name="supprimerStage")
      */
-    public function supprimerStage(Request $request, $id) {
+    public function Supprimerstage(Request $request, $id) {
 
         $user=$this->getUser();
 
