@@ -7,11 +7,11 @@
 				<div class="box container large">
 					<section>
 						<header>
-					<a class="button center" href="{{path('ajout_entreprise')}}">Ajout d'une entreprise</a>
+					<a class="button center" href="{{path('ajout_stage')}}">Ajout d'un stage</a>
 						</header>
 						<br>
 						<header>
-							<h3>Liste des entreprises</h3>
+							<h3>Liste des stages</h3>
 						</header>
 						<div class="table">
 							<table class="default">
@@ -31,7 +31,7 @@
 									</tr>
 								</thead>
 								<tbody>
-                                {% for i in entreprises %}
+                                {% for i in stages %}
                                     <tr>
                                         <td>{{ i.nom }}</td>
                                         <td>{{ i.ville }}</td>
@@ -41,9 +41,9 @@
 										<td>{{ i.activite }}</td>
 										<td>{{ i.active }}</td>
 										<td>{{ i.resteplace }}</td>
-										<td><a href="{{ path('modifier_entreprise', {'id': i.id}) }}">
+										<td><a href="{{ path('modifier_stage', {'id': i.id}) }}">
                                                 Modifier</a></td>
-										<td><a href="{{ path('supprimer_entreprise', {'id': i.id}) }}">
+										<td><a href="{{ path('supprimer_stage', {'id': i.id}) }}">
                                                 Supprimer</a></td>
 
                                     </tr>

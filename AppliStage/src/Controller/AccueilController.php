@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Entreprise;
+use App\Entity\Stage;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,16 +22,14 @@ class AccueilController extends Controller
     /**
      * @Route("/accueil/", name="accueil")
      */
-    public function Index(SessionInterface $session)
+    public function index(SessionInterface $session)
     {
 
         $test = $this->getUser() ? $this->getUser()->getIdstage() : '';
-        $entreprises = $this->getDoctrine()->getRepository(Entreprise::class)->findAll();
-
-        //$selec = $this->getDoctrine()->getRepository(Entreprise::class)->findAll();
+        $entreprises = $this->getDoctrine()->getRepository(Stage::class)->findAll();
 
         if($test!=''){
-            $repository = $this->getDoctrine()->getRepository(Entreprise::class);
+            $repository = $this->getDoctrine()->getRepository(Stage::class);
             $product = $repository->find($test);
 
         }
@@ -39,21 +37,16 @@ class AccueilController extends Controller
             $product = $entreprises;
         }
 
-       // $a=0;
-
-      //  while($a==0){
-
             $heureActuel = time();
 
             return $this->render('accueil/index.html.twig',array('entreprises'=>$entreprises,'iduser'=>$test,'selec'=>$product,'heure'=>$heureActuel));
-      //  }
 
     }
 
     /**
      * @Route("/inscription", name= "inscription")
      */
-    public function Inscriptionaction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function inscriptionAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         // 1) build the form
         $user = new Utilisateur();
@@ -112,16 +105,16 @@ class AccueilController extends Controller
     /**
      * @Route("/membre/declarerStage/{id}", name="declarerStage")
      */
-    public function Declarerstage(Request $request, $id) {
+    public function declarerStage(Request $request, $id) {
 
         $user=$this->getUser();
 
         $entityManager = $this->getDoctrine()->getManager();
         $utilisateur = $entityManager->getRepository(Utilisateur::class)->find($user->getId());
-        $entreprise = $entityManager->getRepository(Entreprise::class)->find($id);
+        $stage = $entityManager->getRepository(Stage::class)->find($id);
 
-        if($entreprise->getResteplace()>0){
-            $entreprise->setResteplace($entreprise->getResteplace()-1);
+        if($stage->getResteplace()>0){
+            $stage->setResteplace($stage->getResteplace()-1);
             $utilisateur->setIdstage($id);
             $entityManager->flush();
         }
@@ -132,13 +125,13 @@ class AccueilController extends Controller
     /**
      * @Route("/membre/supprimerStage/{id}", name="supprimerStage")
      */
-    public function Supprimerstage(Request $request, $id) {
+    public function supprimerStage(Request $request, $id) {
 
         $user=$this->getUser();
 
         $entityManager = $this->getDoctrine()->getManager();
         $utilisateur = $entityManager->getRepository(Utilisateur::class)->find($user->getId());
-        $entreprise = $entityManager->getRepository(Entreprise::class)->find($id);
+        $entreprise = $entityManager->getRepository(Stage::class)->find($id);
 
             $entreprise->setResteplace($entreprise->getResteplace()+1);
             $utilisateur->setIdstage(null);

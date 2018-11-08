@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller;
 
-use App\Entity\Entreprise;
+use App\Entity\Stage;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,19 +31,19 @@ class AdministrateurController extends Controller
     }
 	
 	/**
-     * @Route("/administrateur/entreprises", name="administrateur_entreprises")
+     * @Route("/administrateur/stage", name="administrateur_stage")
      */
-    public function Entreprises()
+    public function stages()
     {
-        $entreprises = $this->getDoctrine()
-            ->getRepository(Entreprise::class)
+        $stages = $this->getDoctrine()
+            ->getRepository(Stage::class)
             ->findAll();
-        return $this->render('administrateur/entreprises.html.twig', array('entreprises'=>$entreprises));
+        return $this->render('administrateur/stages.html.twig', array('stages'=>$stages));
     }
 	/**
      * @Route("/administrateur/utilisateurs", name="administrateur_utilisateurs")
      */
-	public function Utilisateurs()
+	public function utilisateurs()
     {
         $utilisateurs = $this->getDoctrine()
             ->getRepository(Utilisateur::class)
@@ -54,11 +54,11 @@ class AdministrateurController extends Controller
 
 	
 	/**
-     * @Route("/administrateur/ajout", name="ajout_entreprise")
+     * @Route("/administrateur/ajout", name="ajout_stage")
      */
-    public function Ajoutentreprise(Request $request)
+    public function ajoutStage(Request $request)
     {
-        $item = new Entreprise();
+        $item = new Stage();
         $item->setNom('');
         $item->setVille('');
         $item->setCp(0);
@@ -99,12 +99,12 @@ class AdministrateurController extends Controller
     }
 	
 	 /**
-     * @Route("/administrateur/modifier_entreprise/{id}", name="modifier_entreprise")
+     * @Route("/administrateur/modifier_stage/{id}", name="modifier_stage")
      */
-    public function Modifierentreprise(Request $request, $id)
+    public function modifierStage(Request $request, $id)
     {
         $item = $this->getDoctrine()
-            ->getRepository(Entreprise::class)
+            ->getRepository(Stage::class)
             ->find($id);
         if (!$item) {
             throw $this->createNotFoundException(
@@ -133,21 +133,21 @@ class AdministrateurController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($item);
                 $em->flush();
-                return $this->redirectToRoute('administrateur_entreprises');
+                return $this->redirectToRoute('administrateur_stage');
             }
         }
-        return $this->render('administrateur/modifEntreprise.html.twig', array(
+        return $this->render('administrateur/modifStage.html.twig', array(
             'form' => $form->createView(),
         ));
     }
 	
 	    /**
-     * @Route("/administrateur/supprimer_entreprise/{id}", name="supprimer_entreprise")
+     * @Route("/administrateur/supprimer_stage/{id}", name="supprimer_stage")
      */
-    public function Supprimerentreprise($id)
+    public function supprimerStage($id)
     {
         $item = $this->getDoctrine()
-            ->getRepository(Entreprise::class)
+            ->getRepository(Stage::class)
             ->find($id);
         if (!$item) {
             throw $this->createNotFoundException(
@@ -159,13 +159,13 @@ class AdministrateurController extends Controller
             $em->remove($item);
             $em->flush();
             }
-        return $this->redirectToRoute('administrateur_entreprises');
+        return $this->redirectToRoute('administrateur_stage');
     }
 	
 	 /**
      * @Route("/administrateur/modifier_utilisateur/{id}", name="modifier_utilisateur")
      */
-    public function Modifierutilisateur(Request $request, $id, UserPasswordEncoderInterface $passwordEncoder)
+    public function modifierUtilisateur(Request $request, $id, UserPasswordEncoderInterface $passwordEncoder)
     {
         $item = $this->getDoctrine()
             ->getRepository(Utilisateur::class)
@@ -218,7 +218,7 @@ class AdministrateurController extends Controller
 	    /**
      * @Route("/administrateur/supprimer_utilisateur/{id}", name="supprimer_utilisateur")
      */
-    public function Supprimerutilisateur($id)
+    public function supprimerUtilisateur($id)
     {
         $item = $this->getDoctrine()
             ->getRepository(Utilisateur::class)
@@ -233,6 +233,6 @@ class AdministrateurController extends Controller
             $em->remove($item);
             $em->flush();
             }
-        return $this->redirectToRoute('administrateur_utilisateurs');
+        return $this->redirectToRoute('administrateur_utilisateur');
     }
 }

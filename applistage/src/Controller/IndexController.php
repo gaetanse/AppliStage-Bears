@@ -17,7 +17,7 @@ class IndexController extends Controller
      * @Route("/", name="index")
      */
     public function index()
-    {  // test
+    {
         return $this->redirectToRoute('accueil');
     }
 }

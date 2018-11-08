@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Entreprise;
+use App\Entity\Stage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Entreprise|null find($id, $lockMode = null, $lockVersion = null)
- * @method Entreprise|null findOneBy(array $criteria, array $orderBy = null)
- * @method Entreprise[]    findAll()
- * @method Entreprise[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Stage|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Stage|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Stage[]    findAll()
+ * @method Stage[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EntrepriseRepository extends ServiceEntityRepository
+class StageRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Entreprise::class);
+        parent::__construct($registry, Stage::class);
     }
 
 //    /**
-//     * @return Entreprise[] Returns an array of Entreprise objects
+//     * @return Stage[] Returns an array of Stage objects
 //     */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class EntrepriseRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Entreprise
+    public function findOneBySomeField($value): ?Stage
     {
         return $this->createQueryBuilder('e')
             ->andWhere('e.exampleField = :val')
